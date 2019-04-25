@@ -1,13 +1,29 @@
 
-<p><input [(ngModel)]="yBoundaries[1]"></p>
-<p><input [(ngModel)]="yBoundaries[0]"></p>
+<p><input [ngModel]="yBoundaries[1]" (ngModelChange)="changeBoundaries(1, $event)">
+<input [(ngModel)]="yBoundaries[0]" (ngModelChange)="changeBoundaries(0, $event)"></p>
 
 
 <svg width="1500" height="1000">
-  <g transform="translate(100, 800)" mag-x-axis [dimensions]="[0, 1200]" [domain]="xBoundaries" [autoScale]="true" (xReady)="xReady($event)"></g>
-  <g transform="translate(100, 100)" mag-y-axis [dimensions]="[0, 700]" [domain]="yBoundaries" [autoScale]="true" (yReady)="yReady($event)"></g>
-  <clipPath id="curve-clip">
+  <g mag-x-axis transform="translate(100, 800)" [dimensions]="[0, 1200]" [domain]="xBoundaries" [autoScale]="true" (xReady)="xReady($event)"></g>
+  <g mag-y-axis transform="translate(100, 100)" [dimensions]="[0, 700]" [domain]="yBoundaries" [autoScale]="true" (yReady)="yReady($event)"></g>
+  <defs>
+    <clipPath id="curve-clip">
+    <rect x="100" y="100" width="1400" height="700"></rect>
   </clipPath>
-  <g mag-curve width="900" height="800" transform="translate(100,100)" *ngIf="x && y" [x]="x" [y]="y" [data]="data" [label]="lineLabel"></g>
+</defs>
+  <g mag-curve width="1400" height="800" transform="translate(100,100)" *ngIf="x && y" [x]="x" [y]="y" [data]="data" [label]="lineLabel"></g>
+  <g mag-data-dot-set 
+  width="1400" height="800" 
+  transform="translate(100,100)" 
+  clip-path="url(#curve-clip)" 
+  *ngIf="x && y" 
+  [x]="x" [y]="y" 
+  [data]="data"
+  [radius]="3"
+  [color]="colorFunction"></g>
 </svg>
 
+<div class="dot-hover-tooltip">
+    <div id="dot-hover-tooltip-x-container"></div>
+    <div id="dot-hover-tooltip-y-container"></div>
+</div>

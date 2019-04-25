@@ -35,10 +35,15 @@ export class CurveComponent implements OnChanges {
     if (!this.id) {
       this.generateRandomId();
     }
+    this.clearLine();
     this.defineLine();
     this.drawLine();
   }
 
+  clearLine() {
+    d3Selection.select(`#curve-${this.id}`)
+    .remove();
+  }
   drawLine() {
     d3Selection.select('[mag-curve]')
     .append('path')

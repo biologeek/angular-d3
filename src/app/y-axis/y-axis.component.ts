@@ -34,6 +34,7 @@ export class YAxisComponent implements OnChanges {
   constructor() { }
   
   ngOnChanges() {
+    console.log('Change on Y')
     this.defineXFunction();
     this.buildAxis();
   }

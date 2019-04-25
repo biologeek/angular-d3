@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Serie } from './api/serie';
+import { DataPoint } from './api/data-point';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,10 @@ export class AppComponent implements OnInit {
 
   x;
   y;
+
+  colorFunction = (d: DataPoint) => {
+    return d.y > 500 ? 'red' : 'black';
+  }
 
   ngOnInit() {
     this.data = [
@@ -42,4 +47,11 @@ export class AppComponent implements OnInit {
     console.log('y axis built !')
     this.y = $event;
   }
+
+  changeBoundaries(id, $event) {
+    this.yBoundaries[id] = $event;
+    this.yBoundaries = Object.assign([], this.yBoundaries);
+  }
+
+
 }
